@@ -1,0 +1,23 @@
+plan :one day one library 
+db
+log
+dir
+date
+cache(mc,redis,mongodb)
+opcache
+curl
+download/upload
+fileMutex
+Encrypt
+http(request && response)
+validate
+route
+charset
+pinyin
+email
+pcntrl
+定时器
+ftp
+zip
+execl
+pager
