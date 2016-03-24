@@ -1,0 +1,8 @@
+opcache_​compile_​file
+opcache_​get_​configuration
+opcache_​get_​status
+opcache_​invalidate
+opcache_​is_​script_​cached
+opcache_​reset
+
+it can improve the speed
