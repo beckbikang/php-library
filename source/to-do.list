@@ -2,19 +2,21 @@ db
 log
 dir
 cache
-文件或者文件夹
+file or der
 io buffer
-字符串
-正则
-容器
-日期
+string字符串
+regex正则
+map容器
+date日期
 db
 xml
 json
-异常
+exception异常
 net包
 tcp/udp
 http
-多线程/多进程
+thread/process多线程/多进程
 加密
-反射
+reflect反射
+
+

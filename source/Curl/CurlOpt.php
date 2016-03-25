@@ -10,6 +10,16 @@ namespace php_library\curl;
 
 class CurlOptException extends \Exception{}
 
+/**
+ * to check https data 
+ * http://www.cnblogs.com/ainiaa/archive/2011/11/08/2241385.html
+ * 
+* @ClassName: php_library\curl$CurlOpt 
+* @Description: 
+* @author:bikang@book.sina.com
+* @date 2016年3月23日 下午2:14:47 
+*
+ */
 class CurlOpt{
 	const DEFAULT_FUNC = "get";
 	private $ch;
@@ -26,6 +36,7 @@ class CurlOpt{
 	private $allow_redict = 1;
 	private $max_redict = 20;
 	private $post_data = array();
+	private $cerfy_ca="";
 	
 	
 	
@@ -64,15 +75,23 @@ class CurlOpt{
 		$this->post_data = $data;
 	}
 	
+	public function setCaFile($file){
+		$this->cerfy_ca =$file;
+	}
+	
 	public function checkUrl(){
 		if(empty($this->url)){
 			throw new CurlOptException("not input url");
 		}
 		if(stripos($this->url,"https:") !== false){
 			//检查证书来源
-			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, true);
 			//从证书中检查SSL加密算法是否存在
-			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 1);
+			curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 2);
+			if(empty($this->cerfy_ca)){
+				throw new CurlOptException("not CA file");
+			}
+			curl_setopt($this->ch, CURLOPT_CAINFO, $this->cerfy_ca);
 		}
 		curl_setopt($this->ch, CURLOPT_URL, $this->url);
 		if(!empty($this->cookie_dir) && !is_dir($this->cookie_dir)){
@@ -155,7 +174,22 @@ class CurlOpt{
 		curl_close($this->ch);
 	}
 }
-$url = "http://book.weibo.com";
-$obj = new CurlOpt($url);
-$ret = $obj->runIt();
-echo $ret;
+function testHttpsDouban(){
+	$url = "https://www.douban.com/";
+	$obj = new CurlOpt($url);
+	$file = getcwd()."/douban";
+	$obj->setCaFile($file);
+	$ret = $obj->runIt();
+	echo $ret;
+}
+function testHttpsBaidu(){
+	$url = "https://www.baidu.com/";
+	$obj = new CurlOpt($url);
+	echo $file = getcwd()."/BAIDU_CA.crt";
+	$obj->setCaFile($file);
+	$ret = $obj->runIt();
+	echo $ret;
+}
+testHttpsDouban();
+//testHttpsBaidu();
+

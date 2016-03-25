@@ -14,7 +14,7 @@ namespace php_library\xml;
 
 class XmlAdapterOptException extends \Exception{}
 class XmlAdapterOpt{
-	private $xml_read_obj;
+	public  $xml_read_obj;
 	private $xml = "";
 	
 	public function __construct($file=""){
@@ -89,18 +89,29 @@ class XmlAdapterOpt{
 	public function readDateBySimpleXml(){
 		$this->useSimpleXml();
 	}
-
+	//deal big data
+	public function dealBigData($max="4096M"){
+		set_time_limit(0);
+		ini_set('memory_limit','20480M');
+	}
 	
+	//see more in http://www.w3school.com.cn/htmldom/
 	public function createDomObj($file=""){
 		$this->xml_read_obj = new \DOMDocument();
 		if(empty($file)){
 			$this->xml_read_obj->loadXML($this->xml);
 		}
-		
 	}
-	//处理Dom
-	
-	
+	public function getTageValueList($tag){
+		$list = array();
+		$ret = $this->xml_read_obj->getElementsByTagName("name");
+		if(!empty($ret)){
+			foreach($ret as $v){
+				$list[] = $v->nodeValue;
+			}
+		}
+		return $list;
+	}
 	
 	
 	public function __destruct() {
@@ -128,6 +139,10 @@ $xpath ="/xml/list[2]/name";
 $ret = $obj->getDataBySimpleXpath($xpath);
 $obj->useSimpleXmlIterator();
 $arr = $obj->convertXmlBySimpleXmlIterator();
-print_r($arr);
+$obj->createDomObj();
+//var_dump($obj->getTageValueList("name"));
+
+
+
 
 

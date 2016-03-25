@@ -13,7 +13,7 @@ $load_dir = array(
 		BATH_DIR."Db/",
 		BATH_DIR."Db/mysql/",
 		BATH_DIR."Db/dpool/",
-		
+		BATH_DIR."Dir/",
 );
 
 

@@ -47,7 +47,7 @@ class DateOpt{
 		return $year."-".$month."-01";
 	}
 }
-$dopt = new DateOpt();
+
 
 
 
