@@ -1,14 +1,21 @@
 <?php
 /*
-cusor:
+cusor: i am lazy to write it
 user:kang
 date:2016年3月24日
 project-name:project_name
 package_name:package_name
 
 we will use these extension
-SimpleXML,DOM,libxml, , SOAP, WDDX, XSL, XML, XMLReader, XMLRPC 和 XMLWriter
+SimpleXML,DOM,libxml, , SOAP, WDDX, XSL, XML, XMLReader XMLWriter
+XMLRPC，
 
+Xmldiff:
+	4种比较xml区别的方式：普通的比较，dom比较，内存里面比较，文件比较。
+XMLReader:
+	读取xml的方式
+XMLWriter 
+	创建xml的方式
 */
 namespace php_library\xml;
 
@@ -58,7 +65,7 @@ class XmlAdapterOpt{
 		return $this->convertDoIt($this->xml_read_obj);
 	}
 	//copy from php.net
-	public function convertDoIt($iterator_obj){
+	private function convertDoIt($iterator_obj){
 		$xml_arr = array();
 		for($iterator_obj->rewind();$iterator_obj->valid();$iterator_obj->next()){
 			$key = $iterator_obj->key();
@@ -139,8 +146,9 @@ $xpath ="/xml/list[2]/name";
 $ret = $obj->getDataBySimpleXpath($xpath);
 $obj->useSimpleXmlIterator();
 $arr = $obj->convertXmlBySimpleXmlIterator();
+print_r($arr);
 $obj->createDomObj();
-//var_dump($obj->getTageValueList("name"));
+var_dump($obj->getTageValueList("name"));
 
 
 
